@@ -2,6 +2,7 @@ backup/*.gz
 counter/*.count
 wiki/*.txt
 cache/*.ref
+cache/*.rel
 attach/[A-F0-9]*
 diff/*.txt
 trackback/*.ref
