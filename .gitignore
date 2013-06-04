@@ -1,0 +1,7 @@
+backup/*.gz
+counter/*.count
+wiki/*.txt
+cache/*.ref
+attach/[A-F0-9]*
+diff/*.txt
+trackback/*.ref
