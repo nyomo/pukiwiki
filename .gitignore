@@ -1,8 +1,8 @@
-backup/*.gz
-counter/*.count
-wiki/*.txt
-cache/*.ref
-cache/*.rel
-attach/[A-F0-9]*
-diff/*.txt
-trackback/*.ref
+data/backup/*.gz
+data/counter/*.count
+data/wiki/*.txt
+data/cache/*.ref
+data/cache/*.rel
+data/attach/[A-F0-9]*
+data/diff/*.txt
+data/trackback/*.ref
