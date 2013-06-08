@@ -304,7 +304,10 @@ function encode($key)
 // Decode page name
 function decode($key)
 {
-	return pukiwiki_hex2bin($key);
+	if(SYSTEM_ENCODING != FILENAME_ENCODING){
+		$ret = mb_convert_encoding(pukiwiki_hex2bin($key),SYSTEM_ENCODING,FILENAME_ENCODING);
+	}
+	return $ret;
 }
 
 // Inversion of bin2hex()
