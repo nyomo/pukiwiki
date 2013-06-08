@@ -17,13 +17,13 @@ function is_interwiki($str)
 function is_pagename($str)
 {
 	global $BracketName;
-
+	$str = mb_convert_encoding($str,FILENAME_ENCODING,SYSTEM_ENCODING);
 	$is_pagename = (! is_interwiki($str) &&
 		  preg_match('/^(?!\/)' . $BracketName . '$(?<!\/$)/', $str) &&
 		! preg_match('#(^|/)\.{1,2}(/|$)#', $str));
 
-	if (defined('SOURCE_ENCODING')) {
-		switch(SOURCE_ENCODING){
+	if (defined('FILENAME_ENCODING')) {
+		switch(FILENAME_ENCODING){
 		case 'UTF-8': $pattern =
 			'/^(?:[\x00-\x7F]|(?:[\xC0-\xDF][\x80-\xBF])|(?:[\xE0-\xEF][\x80-\xBF][\x80-\xBF]))+$/';
 			break;
@@ -341,7 +341,7 @@ function page_list($pages, $cmd = 'read', $withfilename = FALSE)
 	$retval = '';
 
 	if($pagereading_enable) {
-		mb_regex_encoding(SOURCE_ENCODING);
+		mb_regex_encoding(FILENAME_ENCODING);
 		$readings = get_readings($pages);
 	}
 
