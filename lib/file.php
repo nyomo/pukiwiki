@@ -37,14 +37,22 @@ function get_source($page = NULL, $lock = TRUE, $join = FALSE)
 			// Removing line-feeds: Because file() doesn't remove them.
 			$result = str_replace("\r", '', file($path));
 		}
-
+		if(SYSTEM_ENCODING != SOURCE_ENCODING){
+			if($join){
+				$ret = mb_convert_encoding($result,SYSTEM_ENCODING,SOURCE_ENCODING);
+			}else{
+				$ret = array();
+				foreach($result as $line){
+					$ret[] = mb_convert_encoding($line,SYSTEM_ENCODING,SOURCE_ENCODING);
+				}
+			}
+		}
 		if ($lock) {
 			flock($fp, LOCK_UN);
 			@fclose($fp);
 		}
 	}
-
-	return $result;
+	return $ret;
 }
 
 // Get last-modified filetime of the page
