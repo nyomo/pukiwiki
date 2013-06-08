@@ -91,7 +91,7 @@ if (defined('PKWK_UTF8_ENABLE')) {
 }
 
 mb_language(MB_LANGUAGE);
-mb_internal_encoding(SOURCE_ENCODING);
+mb_internal_encoding('UTF-8');
 ini_set('mbstring.http_input', 'pass');
 mb_http_output('pass');
 mb_detect_order('auto');
