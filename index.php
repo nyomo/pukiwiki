@@ -9,6 +9,12 @@
 error_reporting(E_ERROR | E_PARSE); // Avoid E_WARNING, E_NOTICE, etc
 //error_reporting(E_ALL); // Debug purpose
 
+//利用環境のチェック
+if(phpversion() < 5.4){
+  $ver = phpversion();
+	die('Require PHP version 5.4 this system version '.$ver);
+}
+
 // Special
 //define('PKWK_READONLY',  1);
 //define('PKWK_SAFE_MODE', 1);
