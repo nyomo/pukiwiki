@@ -336,6 +336,11 @@ if (isset($vars['page'])) {
 	$get['page'] = $post['page'] = $vars['page'] = '';
 }
 
+if(SYSTEM_ENCODING != mb_detect_encoding($vars['page'])){
+	$get['page'] = $post['page'] = $vars['page']  = 
+		mb_convert_encoding($vars['page'],SYSTEM_ENCODING,mb_detect_encoding($vars['page']));
+}
+
 // 整形: msg, 改行を取り除く
 if (isset($vars['msg'])) {
 	$get['msg'] = $post['msg'] = $vars['msg'] = str_replace("\r", '', $vars['msg']);
