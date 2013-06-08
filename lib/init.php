@@ -73,9 +73,11 @@ case 'ko': define('MB_LANGUAGE', 'Korean'  ); break;
 default: die_message('No such language "' . LANG . '"'); break;
 }
 
-define('PKWK_UTF8_ENABLE', 1);
+define('PKWK_UTF8_ENABLE', TRUE);
 if (defined('PKWK_UTF8_ENABLE')) {
-	define('SOURCE_ENCODING', 'UTF-8');
+	if(!defined('SYSTEM_ENCODING'))define('SYSTEM_ENCODING','UTF-8');
+	if(!defined('FILENAME_ENCODING'))define('FILENAME_ENCODING','UTF-8');
+	if(!defined('SOURCE_ENCODING'))define('SOURCE_ENCODING', 'UTF-8');
 	define('CONTENT_CHARSET', 'UTF-8');
 } else {
 	switch (LANG){

@@ -64,11 +64,13 @@ define('LANG', 'ja');
 // UI_LANG - Content encoding for buttons, menus,  etc
 define('UI_LANG', LANG); // 'en' for Internationalized wikisite
 
-//EUC-JP版からの移行に対応したい
-//元のデータはEUC-JPだけど出力はUTF-8がいいな
+//以下のコメントを外すとEUC-JP版のデータをそのまま利用できる
+//但しEUC-JP外のページ名を作るとページ名が文字化けする
+/*
 define('SYSTEM_ENCODING','UTF-8');
 define('FILENAME_ENCODING','EUC-JP');
 define('SOURCE_ENCODING','EUC-JP');
+*/
 
 /////////////////////////////////////////////////
 // Directory settings I (ended with '/', permission '777')
