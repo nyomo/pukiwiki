@@ -54,9 +54,12 @@ function get_filetime($page)
 }
 
 // Get physical file name of the page
-function get_filename($page)
+function get_filename($page,$dir = DATA_DIR,$ext = 'txt')
 {
-	return DATA_DIR . encode($page) . '.txt';
+	//FILENAME_ENCODINGの$pageをencodeした物を返す
+	//$page はSYSTEM_ENCODINGでやってくる
+	$page = mb_convert_encoding($page,FILENAME_ENCODING,SYSTEM_ENCODING);
+	return $dir . encode($page) . ".$ext";
 }
 
 // Put a data(wiki text) into a physical file(diff, backup, text)
@@ -191,7 +194,7 @@ function file_write($dir, $page, $str, $notimestamp = FALSE)
 	if ($dir != DATA_DIR && $dir != DIFF_DIR) die('file_write(): Invalid directory');
 
 	$page = strip_bracket($page);
-	$file = $dir . encode($page) . '.txt';
+	$file = get_filename($page,$dir);
 	$file_exists = file_exists($file);
 
 	// ----
@@ -230,7 +233,7 @@ function file_write($dir, $page, $str, $notimestamp = FALSE)
 	$timestamp = ($file_exists && $notimestamp) ? filemtime($file) : FALSE;
 
 	$fp = fopen($file, 'a') or die('fopen() failed: ' .
-		htmlspecialchars(basename($dir) . '/' . encode($page) . '.txt') .	
+		htmlspecialchars(get_filename($page,basename($dir).'/')) .
 		'<br />' . "\n" .
 		'Maybe permission is not writable or filename is too long');
 	set_file_buffer($fp, 0);
