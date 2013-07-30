@@ -306,6 +306,8 @@ function decode($key)
 {
 	if(SYSTEM_ENCODING != FILENAME_ENCODING){
 		$ret = mb_convert_encoding(pukiwiki_hex2bin($key),SYSTEM_ENCODING,FILENAME_ENCODING);
+	}else{
+		$ret = pukiwiki_hex2bin($key);
 	}
 	return $ret;
 }
