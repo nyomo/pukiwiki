@@ -46,6 +46,15 @@ function get_source($page = NULL, $lock = TRUE, $join = FALSE)
 					$ret[] = mb_convert_encoding($line,SYSTEM_ENCODING,SOURCE_ENCODING);
 				}
 			}
+		}else{
+			if($join){
+				$ret = $result;
+			}else{
+				$ret = array();
+				foreach($result as $line){
+					$ret[] = $line;
+				}
+			}
 		}
 		if ($lock) {
 			flock($fp, LOCK_UN);
