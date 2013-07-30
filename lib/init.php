@@ -172,7 +172,8 @@ unset($user_agent);	// Unset after reading UA_INI_FILE
 $die = '';
 foreach(array('DATA_DIR', 'DIFF_DIR', 'BACKUP_DIR', 'CACHE_DIR') as $dir){
 	if (! is_writable(constant($dir)))
-		$die .= 'Directory is not found or not writable (' . $dir . ')' . "\n";
+		$die .= 'Directory is not found or not writable (' . $dir .
+		         ':' . constant($dir) . ')' . "\n";
 }
 
 // 設定ファイルの変数チェック
