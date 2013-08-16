@@ -66,7 +66,7 @@ function plugin_ls2_convert()
 	}
 	if ($prefix == '') $prefix = strip_bracket($vars['page']) . '/';
 
-	array_walk($args, 'plugin_ls2_check_arg', & $params);
+	array_walk($args, 'plugin_ls2_check_arg', $params);
 
 	$title = (! empty($params['_args'])) ? join(',', $params['_args']) :   // Manual
 		str_replace('$1', htmlspecialchars($prefix), $_ls2_msg_title); // Auto

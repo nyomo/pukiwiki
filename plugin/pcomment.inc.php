@@ -80,7 +80,7 @@ function plugin_pcomment_convert()
 
 	// BugTrack2/106: Only variables can be passed by reference from PHP 5.0.5
 	$args = func_get_args(); // with array_walk()
-	array_walk($args, 'plugin_pcomment_check_arg', & $params);
+	array_walk($args, 'plugin_pcomment_check_arg', $params);
 
 	$vars_page = isset($vars['page']) ? $vars['page'] : '';
 	$page  = (isset($params['_args'][0]) && $params['_args'][0] != '') ? $params['_args'][0] :
