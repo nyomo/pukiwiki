@@ -25,7 +25,7 @@ define('S_COPYRIGHT',
 foreach (array('SCRIPT_NAME', 'SERVER_ADMIN', 'SERVER_NAME',
 	'SERVER_PORT', 'SERVER_SOFTWARE') as $key) {
 	define($key, isset($_SERVER[$key]) ? $_SERVER[$key] : '');
-	unset(${$key}, $_SERVER[$key], $HTTP_SERVER_VARS[$key]);
+	unset(${$key}, $_SERVER[$key]);
 }
 
 /////////////////////////////////////////////////
@@ -140,7 +140,7 @@ $ua = 'HTTP_USER_AGENT';
 $user_agent = $matches = array();
 
 $user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-unset(${$ua}, $_SERVER[$ua], $HTTP_SERVER_VARS[$ua], $ua);	// safety
+unset(${$ua}, $_SERVER[$ua], $ua);	// safety
 
 foreach ($agents as $agent) {
 	if (preg_match($agent['pattern'], $user_agent['agent'], $matches)) {
@@ -283,10 +283,10 @@ $arg = input_filter($arg); // \0 除去
 
 // unset QUERY_STRINGs
 foreach (array('QUERY_STRING', 'argv', 'argc') as $key) {
-	unset(${$key}, $_SERVER[$key], $HTTP_SERVER_VARS[$key]);
+	unset(${$key}, $_SERVER[$key]);
 }
 // $_SERVER['REQUEST_URI'] is used at func.php NOW
-unset($REQUEST_URI, $HTTP_SERVER_VARS['REQUEST_URI']);
+unset($REQUEST_URI);
 
 // mb_convert_variablesのバグ(?)対策: 配列で渡さないと落ちる
 $arg = array($arg);
