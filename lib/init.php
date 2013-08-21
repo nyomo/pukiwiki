@@ -38,6 +38,7 @@ $head_tags    = array();	// XHTML tags in <head></head>
 /////////////////////////////////////////////////
 // Time settings
 
+date_default_timezone_set('Asia/Tokyo');
 define('LOCALZONE', date('Z'));
 define('UTIME', time() - LOCALZONE);
 define('MUTIME', getmicrotime());
