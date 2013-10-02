@@ -73,9 +73,6 @@ function get_filetime($page)
 // Get physical file name of the page
 function get_filename($page,$dir = DATA_DIR,$ext = 'txt')
 {
-	//FILENAME_ENCODINGの$pageをencodeした物を返す
-	//$page はSYSTEM_ENCODINGでやってくる
-	$page = mb_convert_encoding($page,FILENAME_ENCODING,SYSTEM_ENCODING);
 	return $dir . encode($page) . ".$ext";
 }
 
