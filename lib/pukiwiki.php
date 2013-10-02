@@ -127,6 +127,11 @@ if (isset($retvars['body']) && $retvars['body'] != '') {
 }
 
 // Output
-catbody($title, $page, $body);
+if(SMARTY_DIR === FALSE){
+	//smartyを使わないなら以前のまま
+	catbody($title, $page, $body);
+}else{
+	require(LIB_DIR . 'smarty.php');
+}
 exit;
 ?>
