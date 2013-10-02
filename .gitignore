@@ -6,3 +6,5 @@ data/cache/*.rel
 data/attach/[A-F0-9]*
 data/diff/*.txt
 data/trackback/*.ref
+smarty/cache/*.php
+smarty/compile/*.php
