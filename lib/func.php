@@ -296,6 +296,9 @@ function arg_check($str)
 // Encode page-name
 function encode($key)
 {
+	if(SYSTEM_ENCODING != FILENAME_ENCODING){
+		$key= mb_convert_encoding(pukiwiki_hex2bin($key),FILENAME_ENCODING,SYSTEM_ENCODING);
+	}
 	return ($key == '') ? '' : strtoupper(bin2hex($key));
 	// Equal to strtoupper(join('', unpack('H*0', $key)));
 	// But PHP 4.3.10 says 'Warning: unpack(): Type H: outside of string in ...'
