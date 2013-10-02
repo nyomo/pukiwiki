@@ -716,7 +716,8 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 	$r_page  = rawurlencode($page);
 	$r_refer = ($refer == '') ? '' : '&amp;refer=' . rawurlencode($refer);
 
-	if (! isset($related[$page]) && $page != $vars['page'] && is_page($page))
+	if (! isset($related[$page]) && is_array($related)
+	    && $page != $vars['page'] && is_page($page))
 		$related[$page] = get_filetime($page);
 
 	if ($isautolink || is_page($page)) {
