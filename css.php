@@ -1,4 +1,6 @@
 <?php
+//pukiwiki本体のディレクトリを指定する
+define('DATA_HOME','./');
 date_default_timezone_set('ASIA/Tokyo');
 require_once('pukiwiki.ini.php');
 require_once(SMARTY_DIR.'Smarty.class.php');
