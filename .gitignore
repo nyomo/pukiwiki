@@ -1,3 +1,6 @@
+*.orig
+*.bak
+*.rej
 data/backup/*.gz
 data/counter/*.count
 data/wiki/*.txt
