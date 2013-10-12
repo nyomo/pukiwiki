@@ -88,7 +88,7 @@ function page_write($page, $postdata, $notimestamp = FALSE)
 
 	// Create and write diff
 	$oldpostdata = is_page($page) ? join('', get_source($page)) : '';
-	$diffdata    = do_diff($oldpostdata, $postdata);
+	$diffdata    = conv_encoding(do_diff($oldpostdata, $postdata),SOURCE_ENCODING);
 	file_write(DIFF_DIR, $page, $diffdata);
 
 	// Create backup
@@ -190,7 +190,11 @@ function file_head($file, $count = 1, $lock = TRUE, $buffer = 8192)
 	$index = 0;
 	while (! feof($fp)) {
 		$line = fgets($fp, $buffer);
-		if ($line != FALSE) $array[] = $line;
+		if ($line != FALSE){
+			if(SYSTEM_ENCODING != mb_detect_encoding($line)){
+				$array[] = mb_convert_encoding($line,SYSTEM_ENCODING,SOURCE_ENCODING);
+			}
+		}
 		if (++$index >= $count) break;
 	}
 	if ($lock) flock($fp, LOCK_UN);
@@ -307,6 +311,11 @@ function add_recent($page, $recentpage, $subject = '', $limit = 0)
 
 	// Get latest $limit reports
 	$lines = array_splice($lines, 0, $limit);
+	$arr = $lines;
+	$lines = array();
+  foreach($arr as $line){
+		$line[] = conv_encoding($line,SOURCE_ENCODING);
+	}	
 
 	// Update
 	$fp = fopen(get_filename($recentpage), 'w') or
@@ -372,8 +381,10 @@ function lastmodified_add($update = '', $remove = '')
 		// Write
 		ftruncate($fp, 0);
 		rewind($fp);
-		foreach ($recent_pages as $_page=>$time)
+		foreach ($recent_pages as $_page=>$time){
+			$_page = conv_encoding($_page,SOURCE_ENCODING);
 			fputs($fp, $time . "\t" . $_page . "\n");
+		}
 	}
 
 	flock($fp, LOCK_UN);
@@ -420,13 +431,13 @@ function put_lastmodified()
 
 	// Get WHOLE page list
 	$pages = get_existpages();
-
 	// Check ALL filetime
 	$recent_pages = array();
 	foreach($pages as $page)
-		if ($page != $whatsnew && ! check_non_list($page))
-			$recent_pages[$page] = get_filetime($page);
-
+		if ($page != $whatsnew && ! check_non_list($page)){
+			$page_ = conv_encoding($page,SOURCE_ENCODING);
+			$recent_pages[$page_] = get_filetime($page);
+		}
 	// Sort decending order of last-modification date
 	arsort($recent_pages, SORT_NUMERIC);
 
@@ -466,9 +477,12 @@ function put_lastmodified()
 	rewind($fp);
 	foreach (array_keys($recent_pages) as $page) {
 		$time      = $recent_pages[$page];
-		$s_lastmod = htmlspecialchars(format_date($time));
-		$s_page    = htmlspecialchars($page);
-		fputs($fp, '-' . $s_lastmod . ' - [[' . $s_page . ']]' . "\n");
+		$s_lastmod = conv_encoding(format_date($time),SOURCE_ENCODING);
+		$s_page    = $page;
+		$str = '-' . $s_lastmod . ' - [[' . $s_page . ']]' . "\n";
+		$str    = htmlspecialchars($str,ENT_COMPAT | ENT_HTML401,SOURCE_ENCODING);
+
+		fputs($fp, '-' . $str);
 	}
 	fputs($fp, '#norelated' . "\n"); // :)
 	flock($fp, LOCK_UN);
