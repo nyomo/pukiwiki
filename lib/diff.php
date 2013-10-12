@@ -14,6 +14,8 @@ define('PKWK_DIFF_SHOW_CONFLICT_DETAIL', 1);
 function do_diff($strlines1, $strlines2)
 {
 	$obj = new line_diff();
+	$strlines1 = conv_encoding($strlines1);
+	$strlines2 = conv_encoding($strlines2);
 	$str = $obj->str_compare($strlines1, $strlines2);
 	return $str;
 }
