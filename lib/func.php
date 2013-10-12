@@ -766,4 +766,13 @@ if (! function_exists('sha1')) {
 		}
 	}
 }
+
+function conv_encoding($str,$to=SYSTEM_ENCODING,$from=NULL){
+	if(is_null($from)){
+		$str = mb_convert_encoding($str,$to,mb_detect_encoding($str));
+	}else{
+		$str = mb_convert_encoding($str,$to,$from);
+	}
+	return $str;
+}
 ?>
