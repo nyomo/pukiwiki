@@ -39,7 +39,7 @@ function plugin_online_itself($type = 0)
 		}
 
 		// Try read
-		if (plugin_online_check_online(& $count, $host)) {
+		if (plugin_online_check_online($count, $host)) {
 			$result = TRUE;
 		} else {
 			// Write
