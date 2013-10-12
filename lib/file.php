@@ -61,6 +61,7 @@ function get_source($page = NULL, $lock = TRUE, $join = FALSE)
 			@fclose($fp);
 		}
 	}
+	if(!isset($ret)){$ret = NULL;}
 	return $ret;
 }
 
