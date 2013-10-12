@@ -29,15 +29,15 @@ function plugin_unfreeze_action()
 		// Unfreeze
 		$postdata = get_source($page);
 		array_shift($postdata);
-		$postdata = join('', $postdata);
-		file_write(DATA_DIR, $page, $postdata, TRUE);
+		$str= conv_encoding(join('', $postdata),SOURCE_ENCODING);
+		file_write(DATA_DIR, $page, $str, TRUE);
 
 		// Update 
 		is_freeze($page, TRUE);
 		if (PLUGIN_UNFREEZE_EDIT) {
 			$vars['cmd'] = 'read'; // To show 'Freeze' link
 			$msg  = & $_title_unfreezed;
-			$body = edit_form($page, $postdata);
+			$body = edit_form($page, join('',$postdata));
 		} else {
 			$vars['cmd'] = 'read';
 			$msg  = & $_title_unfreezed;
