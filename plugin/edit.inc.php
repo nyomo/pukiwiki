@@ -67,10 +67,19 @@ function plugin_edit_preview()
 	$body .= '<br />' . "\n";
 
 	if ($postdata) {
+		if(SYSTEM_ENCODING != SOURCE_ENCODING){
+			$postdata = conv_encoding($postdata,SYSTEM_ENCODING);
+		}
 		$postdata = make_str_rules($postdata);
 		$postdata = explode("\n", $postdata);
 		$postdata = drop_submit(convert_html($postdata));
 		$body .= '<div id="preview">' . $postdata . '</div>' . "\n";
+	}
+	if(SYSTEM_ENCODING != mb_detect_encoding($vars['encode_hint'])){
+		$vars['msg'] = conv_encoding($vars['msg'],SYSTEM_ENCODING,SOURCE_ENCODING);
+		$vars['preview'] = conv_encoding($vars['preview'],SYSTEM_ENCODING,SOURCE_ENCODING);
+		$vars['original'] = conv_encoding($vars['original'],SYSTEM_ENCODING,SOURCE_ENCODING);
+		$vars['encode_hint'] = conv_encoding($vars['encode_hint'],SYSTEM_ENCODING,SOURCE_ENCODING);
 	}
 	$body .= edit_form($page, $vars['msg'], $vars['digest'], FALSE);
 
