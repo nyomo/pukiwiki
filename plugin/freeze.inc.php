@@ -29,7 +29,8 @@ function plugin_freeze_action()
 		// Freeze
 		$postdata = get_source($page);
 		array_unshift($postdata, "#freeze\n");
-		file_write(DATA_DIR, $page, join('', $postdata), TRUE);
+		$str = conv_encoding(join('',$postdata),SOURCE_ENCODING);
+		file_write(DATA_DIR, $page,$str, TRUE);
 
 		// Update
 		is_freeze($page, TRUE);
