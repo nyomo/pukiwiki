@@ -316,7 +316,7 @@ function add_recent($page, $recentpage, $subject = '', $limit = 0)
 	$arr = $lines;
 	$lines = array();
   foreach($arr as $line){
-		$line[] = conv_encoding($line,SOURCE_ENCODING);
+		$lines[] = conv_encoding($line,SOURCE_ENCODING);
 	}	
 
 	// Update
