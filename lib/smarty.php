@@ -137,7 +137,10 @@ $smarty->assign('ConvertTime',$taketime);
 $smarty->assign('ToolBarItem',$toolbar);
 $smarty->assign('ToolBarIcon',$_IMAGE);
 
-$smarty->display('index.tpl');
-
-
+if(!defined('SKIN_NAME'))define('SKIN_NAME',FALSE);
+switch(SKIN_NAME){
+	case 'Twitter': $smarty->display('twitterbootstrap.tpl'); break;
+	default: $smarty->display('index.tpl'); break;
+}
+exit();
 ?>
