@@ -28,7 +28,6 @@ function plugin_diff_view($page)
 	global $script, $hr;
 	global $_msg_notfound, $_msg_goto, $_msg_deleted, $_msg_addline, $_msg_delline, $_title_diff;
 	global $_title_diff_delete;
-
 	$r_page = rawurlencode($page);
 	$s_page = htmlspecialchars($page);
 
@@ -51,7 +50,8 @@ function plugin_diff_view($page)
 			$menu[] = '<li><a href="' . $script . '?cmd=diff&amp;action=delete&amp;page=' .
 				$r_page . '">' . str_replace('$1', $s_page, $_title_diff_delete) . '</a></li>';
 		}
-		$msg = '<pre>' . diff_style_to_css(htmlspecialchars(join('', file($filename)))) . '</pre>' . "\n";
+		$msg = '<pre>' . diff_style_to_css(htmlspecialchars(join('', file($filename)),ENT_COMPAT | ENT_HTML401,SOURCE_ENCODING)) . '</pre>' . "\n";
+		$msg = conv_encoding($msg,SYSTEM_ENCODING);
 	} else if ($is_page) {
 		$diffdata = trim(htmlspecialchars(join('', get_source($page))));
 		$msg = '<pre><span class="diff_added">' . $diffdata . '</span></pre>' . "\n";
