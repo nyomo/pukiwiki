@@ -138,6 +138,7 @@ $smarty->assign('ConvertTime',$taketime);
 $smarty->assign('ToolBarItem',$toolbar);
 $smarty->assign('ToolBarIcon',$_IMAGE);
 $smarty->assign('ToolBarTitle',$_LANG['skin']);
+$smarty->assign('UrlBase','/');
 if(!empty($related)){ $smarty->assign('Related',$related); }
 if(!defined('SKIN_NAME'))define('SKIN_NAME',FALSE);
 switch(SKIN_NAME){

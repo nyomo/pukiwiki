@@ -27,11 +27,11 @@
 <meta name='keywords' content='<!--{#keyword#}-->'> 
 <meta name='description' content='<!--{#description#}-->'>
 <title><!--{$PageTitle}-->:<!--{$SiteTitle}--></title>
-<link href='css.php' rel='stylesheet'>
+<link href='<!--{$UrlBase}-->css.php' rel='stylesheet'>
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-  <script src='script/html5shiv.js'></script>
-  <script src='script/respond.min.js'></script>
+  <script src='<!--{$UrlBase}-->script/html5shiv.js'></script>
+  <script src='<!--{$UrlBase}-->script/respond.min.js'></script>
 <![endif]-->
 <script>
 <!--{#add_javascript#}-->
@@ -45,7 +45,7 @@
    <span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span>
    </button>
    <button type='button' class='btn btn-primary navbar-toggle' data-toggle='offcanvas'>SideMenu</button>
-   <a class='navbar-brand' href='<!--{$ToolBarItem['top']}-->'><img src='image/logo.png' width='30px'><!--{$SiteTitle}--></a>
+   <a class='navbar-brand' href='<!--{$ToolBarItem['top']}-->'><img src='<!--{$UrlBase}-->image/logo.png' width='30px'><!--{$SiteTitle}--></a>
   </div>
   <div class='collapse navbar-collapse pull-right'>
    <ul class='nav navbar-nav'>
@@ -84,7 +84,7 @@
 <div id='toolbar' class='pull-right'>
 <span id='toolbutton'>
 <!--{foreach $ToolBarItem as $ItemKey=>$Item}-->
-<a href='<!--{$Item}-->' data-toggle='tooltip' title='<!--{$ItemKey}-->'><img src='<!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' title='<!--{$ToolBarTitle[$ItemKey]}-->'></a>
+<a href='<!--{$Item}-->' data-toggle='tooltip' title='<!--{$ItemKey}-->'><img src='<!--{$UrlBase}--><!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' title='<!--{$ToolBarTitle[$ItemKey]}-->'></a>
 <!--{/foreach}-->
 </span></div><!--{*toolbar*}-->
 <!--{if isset($Related)}-->
@@ -99,8 +99,8 @@ HTML convert time: <!--{$ConvertTime}--><br>
 </div><!--{*#footer*}-->
 </div><!--{*#body*}-->
 <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-<script src='script/bootstrap.min.js'></script>
-<script src='script/offcanvas.js'></script>
+<script src='<!--{$UrlBase}-->script/bootstrap.min.js'></script>
+<script src='<!--{$UrlBase}-->script/offcanvas.js'></script>
 </body>
 </html>
 
