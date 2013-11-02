@@ -20,6 +20,8 @@ if (! defined('PKWK_OPTIMISE'))
 //Smartyのlibディレクトリへのパス。使わない場合にはFALSEにする
 define('SMARTY_DIR',FALSE);
 if(SMARTY_DIR !== FALSE){
+	//TwitterBootstrapを使うならTRUEに
+	define('SKIN_NAME',FALSE);
   require_once(SMARTY_DIR.'Smarty.class.php');
   $smarty = new Smarty();
   $smarty->cache_dir   = DATA_HOME.'/smarty/cache';
