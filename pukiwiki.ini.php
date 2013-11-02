@@ -18,7 +18,7 @@ if (! defined('PKWK_OPTIMISE'))
 	define('PKWK_OPTIMISE', 0);
 
 //Smartyのlibディレクトリへのパス。使わない場合にはFALSEにする
-define('SMARTY_DIR','FALSE');
+define('SMARTY_DIR',FALSE);
 if(SMARTY_DIR !== FALSE){
   require_once(SMARTY_DIR.'Smarty.class.php');
   $smarty = new Smarty();
