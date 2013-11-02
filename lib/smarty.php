@@ -123,6 +123,7 @@ foreach($toollist as $item){
 	if(isset($_LINK[$item]))
 	$toolbar[$item] = $_LINK[$item];
 }
+$smarty->assign('SiteTitle',$page_title);
 $smarty->assign('MenuBody',$menubar);
 $smarty->assign('PageTitle',$vars['page']);
 $smarty->assign('WikiBody',$body);
@@ -138,7 +139,6 @@ $smarty->assign('ToolBarItem',$toolbar);
 $smarty->assign('ToolBarIcon',$_IMAGE);
 $smarty->assign('ToolBarTitle',$_LANG['skin']);
 if(!empty($related)){ $smarty->assign('Related',$related); }
-
 if(!defined('SKIN_NAME'))define('SKIN_NAME',FALSE);
 switch(SKIN_NAME){
 	case 'Twitter': $smarty->display('twitterbootstrap.tpl'); break;
