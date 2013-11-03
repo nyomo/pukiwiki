@@ -289,17 +289,20 @@ function make_related($page, $tag = '')
 	}
 
 	$_links = array();
+	if(PAGENAME_BASE){
+		$url_base = PAGENAME_BASE;
+	}else{
+		$url_base = $script.'?';
+	}
 	foreach ($links as $page=>$lastmod) {
 		if (check_non_list($page)) continue;
 
-		$r_page   = rawurlencode($page);
+		$r_page   = defined('PAGENAME_BASE')&&PAGENAME_BASE?$page:rawurlencode($page);
 		$s_page   = htmlspecialchars($page);
 		$passage  = get_passage($lastmod);
 		$_links[] = $tag ?
-			'<a href="' . $script . '?' . $r_page . '" title="' .
-			$s_page . ' ' . $passage . '">' . $s_page . '</a>' :
-			'<a href="' . $script . '?' . $r_page . '">' .
-			$s_page . '</a>' . $passage;
+			'<a href="'.$url_base.$r_page.'" title="'.$s_page.' '.$passage.'">'.$s_page.'</a>' :
+			'<a href="' . $url_base . '">' .  $s_page . '</a>' . $passage;
 	}
 	if (empty($_links)) return ''; // Nothing
 
