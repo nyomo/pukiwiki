@@ -309,6 +309,9 @@ EOD;
 		} else {
 			$script = get_script_uri() . '?' . rawurlencode($page);
 		}
+		if(defined('PAGENAME_BASE')){
+			$script = PAGENAME_BASE.$page;
+		}
 
 		$id   = ++$note_id;
 		$note = make_link($body);
@@ -735,9 +738,13 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 		} else {
 			$al_left = $al_right = '';
 		}
-
-		return $al_left . '<a ' . 'href="' . $script . '?' . $r_page . $anchor .
-			'"' . $title . '>' . $s_alias . '</a>' . $al_right;
+		if(defined('PAGENAME_BASE')){
+			return $al_left . '<a ' . 'href="' . PAGENAME_BASE . $page . $anchor .
+				'"' . $title . '>' . $s_alias . '</a>' . $al_right;
+		}else{
+			return $al_left . '<a ' . 'href="' . $script . '?' . $r_page . $anchor .
+				'"' . $title . '>' . $s_alias . '</a>' . $al_right;
+		}
 	} else {
 		// Dangling link
 		if (PKWK_READONLY) return $s_alias; // No dacorations
