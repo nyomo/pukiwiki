@@ -31,6 +31,8 @@ if(SMARTY_DIR !== FALSE){
   $smarty->left_delimiter = '<!--{';
   $smarty->right_delimiter = '}-->';
 }
+
+define('PAGENAME_BASE','/XY/');
 /////////////////////////////////////////////////
 // Security settings
 
