@@ -309,7 +309,7 @@ EOD;
 		} else {
 			$script = get_script_uri() . '?' . rawurlencode($page);
 		}
-		if(defined('PAGENAME_BASE')){
+		if(defined('PAGENAME_BASE') && PAGENAME_BASE !== FALSE){
 			$script = PAGENAME_BASE.$page;
 		}
 
@@ -738,7 +738,7 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 		} else {
 			$al_left = $al_right = '';
 		}
-		if(defined('PAGENAME_BASE')){
+		if(defined('PAGENAME_BASE') && PAGENAME_BASE !== FALSE){
 			return $al_left . '<a ' . 'href="' . PAGENAME_BASE . $page . $anchor .
 				'"' . $title . '>' . $s_alias . '</a>' . $al_right;
 		}else{
