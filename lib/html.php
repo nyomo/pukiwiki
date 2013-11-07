@@ -289,7 +289,7 @@ function make_related($page, $tag = '')
 	}
 
 	$_links = array();
-	if(PAGENAME_BASE){
+	if(defined('PAGENAME_BASE') && PAGENAME_BASE !== FALSE){
 		$url_base = PAGENAME_BASE;
 	}else{
 		$url_base = $script.'?';
@@ -297,7 +297,7 @@ function make_related($page, $tag = '')
 	foreach ($links as $page=>$lastmod) {
 		if (check_non_list($page)) continue;
 
-		$r_page   = defined('PAGENAME_BASE')&&PAGENAME_BASE?$page:rawurlencode($page);
+		$r_page   = defined('PAGENAME_BASE')&&PAGENAME_BASE!==FALSE?$page:rawurlencode($page);
 		$s_page   = htmlspecialchars($page);
 		$passage  = get_passage($lastmod);
 		$_links[] = $tag ?
