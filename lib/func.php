@@ -142,17 +142,16 @@ function auto_template($page)
 function get_search_words($words = array(), $do_escape = FALSE)
 {
 	static $init, $mb_convert_kana, $pre, $post, $quote = '/';
-
 	if (! isset($init)) {
 		// function: mb_convert_kana() is for Japanese code only
 		if (LANG == 'ja' && function_exists('mb_convert_kana')) {
 			$mb_convert_kana = create_function('$str, $option',
-				'return mb_convert_kana($str, $option, SOURCE_ENCODING);');
+				'return mb_convert_kana($str, $option, SYSTEM_ENCODING);');
 		} else {
 			$mb_convert_kana = create_function('$str, $option',
 				'return $str;');
 		}
-		if (SOURCE_ENCODING == 'EUC-JP') {
+		if (SYSTEM_ENCODING == 'EUC-JP') {
 			// Perl memo - Correct pattern-matching with EUC-JP
 			// http://www.din.or.jp/~ohzaki/perl.htm#JP_Match (Japanese)
 			$pre  = '(?<!\x8F)';
@@ -174,12 +173,12 @@ function get_search_words($words = array(), $do_escape = FALSE)
 
 		// Normalize: ASCII letters = to single-byte. Others = to Zenkaku and Katakana
 		$word_nm = $mb_convert_kana($word, 'aKCV');
-		$nmlen   = mb_strlen($word_nm, SOURCE_ENCODING);
+		$nmlen   = mb_strlen($word_nm, SYSTEM_ENCODING);
 
 		// Each chars may be served ...
 		$chars = array();
 		for ($pos = 0; $pos < $nmlen; $pos++) {
-			$char = mb_substr($word_nm, $pos, 1, SOURCE_ENCODING);
+			$char = mb_substr($word_nm, $pos, 1, SYSTEM_ENCODING);
 
 			// Just normalized one? (ASCII char or Zenkaku-Katakana?)
 			$or = array(preg_quote($do_escape ? htmlspecialchars($char) : $char, $quote));
@@ -202,7 +201,6 @@ function get_search_words($words = array(), $do_escape = FALSE)
 
 		$regex[$word] = $pre . join('', $chars) . $post; // For the word
 	}
-
 	return $regex; // For all words
 }
 
@@ -214,14 +212,12 @@ function do_search($word, $type = 'AND', $non_format = FALSE, $base = '')
 	global $search_auth, $show_passage;
 
 	$retval = array();
-
 	$b_type = ($type == 'AND'); // AND:TRUE OR:FALSE
 	$keys = get_search_words(preg_split('/\s+/', $word, -1, PREG_SPLIT_NO_EMPTY));
 	foreach ($keys as $key=>$value)
 		$keys[$key] = '/' . $value . '/S';
 
 	$pages = get_existpages();
-
 	// Avoid
 	if ($base != '') {
 		$pages = preg_grep('/^' . preg_quote($base, '/') . '/S', $pages);
