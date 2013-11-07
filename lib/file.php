@@ -88,6 +88,7 @@ function page_write($page, $postdata, $notimestamp = FALSE)
 
 	if (PKWK_READONLY) return; // Do nothing
 
+	$postdata = conv_encoding($postdata,SOURCE_ENCODING);
 	$postdata = make_str_rules($postdata);
 
 	// Create and write diff
@@ -551,7 +552,7 @@ function get_existpages($dir = DATA_DIR, $ext = '.txt')
 	$matches = array();
 	while ($file = readdir($dp))
 		if (preg_match($pattern, $file, $matches))
-			$aryret[$file] = decode($matches[1]);
+			$aryret[$file] = conv_encoding(decode($matches[1]));
 	closedir($dp);
 
 	return $aryret;
