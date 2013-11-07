@@ -31,8 +31,10 @@ if(SMARTY_DIR !== FALSE){
   $smarty->left_delimiter = '<!--{';
   $smarty->right_delimiter = '}-->';
 }
-
-define('PAGENAME_BASE','/XY/');
+//http://example/wiki/ページ名 の様な形式に対応する場合には'/wiki/'を指定して
+//httpdでURLrewriteする
+//普通のPukiWikiとして使うならFALSEに
+define('PAGENAME_BASE',FALSE);
 /////////////////////////////////////////////////
 // Security settings
 
