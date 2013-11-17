@@ -195,9 +195,7 @@ function file_head($file, $count = 1, $lock = TRUE, $buffer = 8192)
 	while (! feof($fp)) {
 		$line = fgets($fp, $buffer);
 		if ($line != FALSE){
-			if(SYSTEM_ENCODING != mb_detect_encoding($line)){
-				$array[] = mb_convert_encoding($line,SYSTEM_ENCODING,SOURCE_ENCODING);
-			}
+      $array[] = conv_encoding($line);
 		}
 		if (++$index >= $count) break;
 	}
