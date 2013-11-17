@@ -223,45 +223,47 @@ unset($_REQUEST);	// Considered harmful
 $_GET    = input_filter($_GET);
 $_POST   = input_filter($_POST);
 $_COOKIE = input_filter($_COOKIE);
-
-// 文字コード変換 ($_POST)
-// <form> で送信された文字 (ブラウザがエンコードしたデータ) のコードを変換
-// POST method は常に form 経由なので、必ず変換する
-//
+//文字コード変換
+//ブラウザから送られた文字コードを変換する
+//何で送られてきてもSYSTEM_ENCODINGにする
+//encode_hintがある場合にはそれを元に元の文字コードを判定する
+//$_POSTの部
 if (isset($_POST['encode_hint']) && $_POST['encode_hint'] != '') {
 	// do_plugin_xxx() の中で、<form> に encode_hint を仕込んでいるので、
 	// encode_hint を用いてコード検出する。
 	// 全体を見てコード検出すると、機種依存文字や、妙なバイナリ
 	// コードが混入した場合に、コード検出に失敗する恐れがある。
 	$encode = mb_detect_encoding($_POST['encode_hint']);
-	mb_convert_variables(SOURCE_ENCODING, $encode, $_POST);
-
+	mb_convert_variables(SYSTEM_ENCODING, $encode, $_POST);
 } else if (isset($_POST['charset']) && $_POST['charset'] != '') {
 	// TrackBack Ping で指定されていることがある
 	// うまくいかない場合は自動検出に切り替え
-	if (mb_convert_variables(SOURCE_ENCODING,
+	if (mb_convert_variables(SYSTEM_ENCODING,
 	    $_POST['charset'], $_POST) !== $_POST['charset']) {
-		mb_convert_variables(SOURCE_ENCODING, 'auto', $_POST);
+		mb_convert_variables(SYSTEM_ENCODING, 'auto', $_POST);
 	}
 
 } else if (! empty($_POST)) {
 	// 全部まとめて、自動検出／変換
-	mb_convert_variables(SOURCE_ENCODING, 'auto', $_POST);
+	mb_convert_variables(SYSTEM_ENCODING, 'auto', $_POST);
 }
-
-// 文字コード変換 ($_GET)
-// GET method は form からの場合と、<a href="http://script/?key=value> の場合がある
-// <a href...> の場合は、サーバーが rawurlencode しているので、コード変換は不要
-if (isset($_GET['encode_hint']) && $_GET['encode_hint'] != '')
-{
-	// form 経由の場合は、ブラウザがエンコードしているので、コード検出・変換が必要。
-	// encode_hint が含まれているはずなので、それを見て、コード検出した後、変換する。
-	// 理由は、post と同様
+//$_GETの部
+if (isset($_GET['encode_hint']) && $_GET['encode_hint'] != '') {
+	//$_GETでencode_hintを仕込んでる場合もある(searchとか)
 	$encode = mb_detect_encoding($_GET['encode_hint']);
-	mb_convert_variables(SOURCE_ENCODING, $encode, $_GET);
+	mb_convert_variables(SYSTEM_ENCODING, $encode, $_GET);
+} else if (isset($_GET['charset']) && $_GET['charset'] != '') {
+	// TrackBack Ping で指定されていることがある
+	// うまくいかない場合は自動検出に切り替え
+	if (mb_convert_variables(SYSTEM_ENCODING,
+	    $_GET['charset'], $_GET) !== $_GET['charset']) {
+		mb_convert_variables(SYSTEM_ENCODING, 'auto', $_GET);
+	}
+
+} else if (! empty($_GET)) {
+	// 全部まとめて、自動検出／変換
+	mb_convert_variables(SYSTEM_ENCODING, 'auto', $_GET);
 }
-
-
 /////////////////////////////////////////////////
 // QUERY_STRINGを取得
 
@@ -412,10 +414,8 @@ unset($facemark_rules);
 // 実体参照パターンおよびシステムで使用するパターンを$line_rulesに加える
 //$entity_pattern = '[a-zA-Z0-9]{2,8}';
 $entity_pattern = trim(join('', file(CACHE_DIR . 'entities.dat')));
-
 $line_rules = array_merge(array(
 	'&amp;(#[0-9]+|#x[0-9a-f]+|' . $entity_pattern . ');' => '&$1;',
 	"\r"          => '<br />' . "\n",	/* 行末にチルダは改行 */
 ), $line_rules);
-
 ?>
