@@ -302,7 +302,7 @@ function make_related($page, $tag = '')
 		$passage  = get_passage($lastmod);
 		$_links[] = $tag ?
 			'<a href="'.$url_base.$r_page.'" title="'.$s_page.' '.$passage.'">'.$s_page.'</a>' :
-			'<a href="' . $url_base . '">' .  $s_page . '</a>' . $passage;
+			'<a href="' . $url_base . $r_page.'">' .  $s_page . '</a>' . $passage;
 	}
 	if (empty($_links)) return ''; // Nothing
 
