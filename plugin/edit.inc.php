@@ -247,7 +247,11 @@ function plugin_edit_write()
 
 	page_write($page, $postdata, $notimeupdate != 0 && $notimestamp);
 	pkwk_headers_sent();
-	header('Location: ' . get_script_uri() . '?' . rawurlencode($page));
+	if(!defined('PAGENAME_BASE') || PAGENAME_BASE == FALSE){
+		header('Location: ' . get_script_uri() . '?' . rawurlencode($page));
+	}else{
+		header('Location: ' . get_script_uri() . substr(PAGENAME_BASE,1) . $page);
+	}
 	exit;
 }
 
