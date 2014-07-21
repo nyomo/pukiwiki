@@ -45,7 +45,7 @@
    <span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span>
    </button>
    <button type='button' class='btn btn-primary navbar-toggle' data-toggle='offcanvas'>SideMenu</button>
-   <a class='navbar-brand' href='<!--{$ToolBarItem['top']}-->'><img src='<!--{#UrlBase#}-->image/logo.png' width='30px'><!--{$SiteTitle}--></a>
+   <a class='navbar-brand' href='<!--{$ToolBarItem['top']}-->'><img src='<!--{#image_logo#}-->' width='30px'><!--{$SiteTitle}--></a>
   </div>
   <div class='collapse navbar-collapse pull-right'>
    <ul class='nav navbar-nav'>
