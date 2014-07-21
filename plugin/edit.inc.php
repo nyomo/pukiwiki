@@ -250,7 +250,9 @@ function plugin_edit_write()
 	if(!defined('PAGENAME_BASE') || PAGENAME_BASE == FALSE){
 		header('Location: ' . get_script_uri() . '?' . rawurlencode($page));
 	}else{
-		header('Location: ' . get_script_uri() . substr(PAGENAME_BASE,1) . $page);
+    $url = parse_url(get_script_uri());
+    $server_name = preg_match('#(http://.*/)#',get_script_uri(),$matches);
+		header('Location: ' . $url['scheme'].'://' . $url['host'] . PAGENAME_BASE . $page);
 	}
 	exit;
 }
