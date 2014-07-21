@@ -32,7 +32,8 @@
 	$_LINK['rss10']    = "$script?cmd=rss&amp;ver=1.0"; // Same as 'rdf'
 	$_LINK['rss20']    = "$script?cmd=rss&amp;ver=2.0";
 	$_LINK['search']   = "$script?cmd=search";
-	$_LINK['top']      = PAGENAME_BASE?rawurlencode($defaultpage):"$script?" . rawurlencode($defaultpage);
+	$_LINK['top']      = PAGENAME_BASE? PAGENAME_BASE . rawurlencode($defaultpage)
+                               :"$script?" . rawurlencode($defaultpage);
 	if ($trackback) {
 		$tb_id = tb_get_id($_page);
 		$_LINK['trackback'] = "$script?plugin=tb&amp;__mode=view&amp;tb_id=$tb_id";
