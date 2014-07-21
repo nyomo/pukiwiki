@@ -84,7 +84,7 @@
 <div id='toolbar' class='pull-right'>
 <span id='toolbutton'>
 <!--{foreach $ToolBarItem as $ItemKey=>$Item}-->
-<a href='<!--{$Item}-->' data-toggle='tooltip' title='<!--{$ItemKey}-->'><img src='<!--{#UrlBase#}--><!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' title='<!--{$ToolBarTitle[$ItemKey]}-->'></a>
+<a href='<!--{$Item}-->' rel="nofollow" data-toggle='tooltip' title='<!--{$ItemKey}-->'><img src='<!--{#UrlBase#}--><!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' title='<!--{$ToolBarTitle[$ItemKey]}-->'></a>
 <!--{/foreach}-->
 </span></div><!--{*toolbar*}-->
 <!--{if isset($Related)}-->
