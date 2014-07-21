@@ -26,8 +26,8 @@
 <title><!--{$PageTitle}-->:<!--{#SiteTitle#}--></title>
 <meta name="keywords" content="<!--{#keyword#}-->"> 
 <meta name="description" content="<!--{#description#}-->">
-<link rel="stylesheet" media="screen,tv" type="text/css" href="<!--{$UrlBase}-->css.php">
-<link rel="stylesheet" media="print" type="text/css" href="<!--{$UrlBase}-->css.php?type=print">
+<link rel="stylesheet" media="screen,tv" type="text/css" href="<!--{#UrlBase#}-->css.php">
+<link rel="stylesheet" media="print" type="text/css" href="<!--{#UrlBase#}-->css.php?type=print">
 <link rel='shortcut icon' href='favicon.ico'>
 <script type="text/javascript">
 <!--{#add_javascript#}-->
@@ -35,13 +35,13 @@
 </head>
 <body>
 <div id='header'>
-<a href='<!--{$SiteTop}-->'><img src='<!--{$UrlBase}--><!--{$ImgURL}--><!--{#image_logo#}-->' id='logo'></a><h1><!--{$PageTitle}--></h1>
+<a href='<!--{$SiteTop}-->'><img src='<!--{#UrlBase#}--><!--{$ImgURL}--><!--{#image_logo#}-->' id='logo'></a><h1><!--{$PageTitle}--></h1>
 <p><!--{#hello_msg#}--></p>
 </p><p class='topicpath'> <!--{$TopicPath}--> </p>
 </div>
 <div id='toolbar '>
 <!--{foreach $ToolBarItem as $ItemKey=>$Item}-->
-<a href='<!--{$Item}-->'><img src='<!--{$UrlBase}--><!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' alt='<!--{$ItemKey}-->'></a>
+<a href='<!--{$Item}-->'><img src='<!--{#UrlBase#}--><!--{#IMG_URL#}--><!--{$ToolBarIcon[$ItemKey]}-->' alt='<!--{$ItemKey}-->'></a>
 <!--{/foreach}-->
 </div>
 <div id='wikibody'>
