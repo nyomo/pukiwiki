@@ -23,8 +23,10 @@ if(phpversion() < 5.4){
 
 // Directory definition
 // (Ended with a slash like '../path/to/pkwk/', or '')
+//pukiwiki本体の入って居るディレクトリを指定
+//index.phpと同じディレクトリに入って居るなら空欄で良い
 define('DATA_HOME',	'');
-define('LIB_DIR',	'lib/');
+define('LIB_DIR',	DATA_HOME.'lib/');
 
 require(LIB_DIR . 'pukiwiki.php');
 ?>
