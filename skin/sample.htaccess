@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^wiki/css.php$ css.php [L]
+RewriteRule ^wiki/image/(.*)$ image/$1 [L]
+RewriteRule ^wiki/script/(.*)$ script/$1 [L]
+RewriteRule ^wiki/(.*)$ ?$1 [L]
