@@ -42,7 +42,7 @@ function plugin_edit_preview()
 	$page = isset($vars['page']) ? $vars['page'] : '';
 
 	// Loading template
-	if (isset($vars['template_page']) && is_page($vars['template_page'])) {
+	if (isset($vars['template_page']) && !empty($vars['template_page']) && is_page($vars['template_page'])) {
 
 		$vars['msg'] = join('', get_source($vars['template_page']));
 
