@@ -25,7 +25,11 @@
 <meta charset='<!--{$OutputEncoding}-->'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <meta name='keywords' content='<!--{#keyword#}-->'> 
+<!--{if empty($description)}-->
 <meta name='description' content='<!--{#description#}-->'>
+<!--{else}-->
+<meta name='description' content='<!--{$description}-->'>
+<!--{/if}-->
 <title><!--{$PageTitle}-->:<!--{$SiteTitle}--></title>
 <link href='<!--{#UrlBase#}-->css.php' rel='stylesheet'>
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
