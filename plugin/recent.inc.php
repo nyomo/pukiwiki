@@ -74,8 +74,13 @@ function plugin_recent_convert()
 		} else {
 			$r_page = rawurlencode($page);
 			$passage = $show_passage ? ' ' . get_passage($time) : '';
+			if(PAGENAME_BASE == FALSE){
 			$items .= ' <li><a href="' . $script . '?' . $r_page . '"' . 
 				' title="' . $s_page . $passage . '">' . $s_page . '</a></li>' . "\n";
+			}else{
+			$items .= '<li><a href="'.PAGENAME_BASE.$s_page.
+                '" title='.$s_page.$passage.'">'.$s_page.'</a></li>'."\n";
+			}
 		}
 	}
 	// End of the day
