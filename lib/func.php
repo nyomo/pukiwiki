@@ -80,12 +80,12 @@ function is_freeze($page, $clearcache = FALSE)
 		return FALSE;
 	} else {
 		$fp = fopen(get_filename($page), 'rb') or
-			die('is_freeze(): fopen() failed: ' . htmlspecialchars($page));
+			die('is_freeze(): fopen() failed: ' . htmlsc($page));
 		flock($fp, LOCK_SH) or die('is_freeze(): flock() failed');
 		rewind($fp);
 		$buffer = fgets($fp, 9);
 		flock($fp, LOCK_UN) or die('is_freeze(): flock() failed');
-		fclose($fp) or die('is_freeze(): fclose() failed: ' . htmlspecialchars($page));
+		fclose($fp) or die('is_freeze(): fclose() failed: ' . htmlsc($page));
 
 		$is_freeze[$page] = ($buffer != FALSE && rtrim($buffer, "\r\n") == '#freeze');
 		return $is_freeze[$page];
@@ -142,6 +142,7 @@ function auto_template($page)
 function get_search_words($words = array(), $do_escape = FALSE)
 {
 	static $init, $mb_convert_kana, $pre, $post, $quote = '/';
+
 	if (! isset($init)) {
 		// function: mb_convert_kana() is for Japanese code only
 		if (LANG == 'ja' && function_exists('mb_convert_kana')) {
@@ -181,7 +182,7 @@ function get_search_words($words = array(), $do_escape = FALSE)
 			$char = mb_substr($word_nm, $pos, 1, SYSTEM_ENCODING);
 
 			// Just normalized one? (ASCII char or Zenkaku-Katakana?)
-			$or = array(preg_quote($do_escape ? htmlspecialchars($char) : $char, $quote));
+			$or = array(preg_quote($do_escape ? htmlsc($char) : $char, $quote));
 			if (strlen($char) == 1) {
 				// An ASCII (single-byte) character
 				foreach (array(strtoupper($char), strtolower($char)) as $_char) {
@@ -201,6 +202,7 @@ function get_search_words($words = array(), $do_escape = FALSE)
 
 		$regex[$word] = $pre . join('', $chars) . $post; // For the word
 	}
+
 	return $regex; // For all words
 }
 
@@ -212,12 +214,14 @@ function do_search($word, $type = 'AND', $non_format = FALSE, $base = '')
 	global $search_auth, $show_passage;
 
 	$retval = array();
+
 	$b_type = ($type == 'AND'); // AND:TRUE OR:FALSE
 	$keys = get_search_words(preg_split('/\s+/', $word, -1, PREG_SPLIT_NO_EMPTY));
 	foreach ($keys as $key=>$value)
 		$keys[$key] = '/' . $value . '/S';
 
 	$pages = get_existpages();
+
 	// Avoid
 	if ($base != '') {
 		$pages = preg_grep('/^' . preg_quote($base, '/') . '/S', $pages);
@@ -259,7 +263,7 @@ function do_search($word, $type = 'AND', $non_format = FALSE, $base = '')
 	if ($non_format) return array_keys($pages);
 
 	$r_word = rawurlencode($word);
-	$s_word = htmlspecialchars($word);
+	$s_word = htmlsc($word);
 	if (empty($pages))
 		return str_replace('$1', $s_word, $_msg_notfoundresult);
 
@@ -268,7 +272,7 @@ function do_search($word, $type = 'AND', $non_format = FALSE, $base = '')
 	$retval = '<ul>' . "\n";
 	foreach (array_keys($pages) as $page) {
 		$r_page  = rawurlencode($page);
-		$s_page  = htmlspecialchars($page);
+		$s_page  = htmlsc($page);
 		$passage = $show_passage ? ' ' . get_passage(get_filetime($page)) : '';
 		$retval .= ' <li><a href="' . $script . '?cmd=read&amp;page=' .
 			$r_page . '&amp;word=' . $r_word . '">' . $s_page .
@@ -360,14 +364,14 @@ function page_list($pages, $cmd = 'read', $withfilename = FALSE)
 
 	foreach($pages as $file=>$page) {
 		$r_page  = rawurlencode($page);
-		$s_page  = htmlspecialchars($page, ENT_QUOTES);
+		$s_page  = htmlsc($page, ENT_QUOTES);
 		$passage = get_pg_passage($page);
 
 		$str = '   <li><a href="' . $href . $r_page . '">' .
 			$s_page . '</a>' . $passage;
 
 		if ($withfilename) {
-			$s_file = htmlspecialchars($file);
+			$s_file = htmlsc($file);
 			$str .= "\n" . '    <ul><li>' . $s_file . '</li></ul>' .
 				"\n" . '   ';
 		}
@@ -435,7 +439,7 @@ function catrule()
 	global $rule_page;
 
 	if (! is_page($rule_page)) {
-		return '<p>Sorry, page \'' . htmlspecialchars($rule_page) .
+		return '<p>Sorry, page \'' . htmlsc($rule_page) .
 			'\' unavailable.</p>';
 	} else {
 		return convert_html(get_source($rule_page));
@@ -635,7 +639,7 @@ function get_script_uri($init_uri = '')
 	if (isset($script_directory_index)) {
 		if (! file_exists($script_directory_index))
 			die_message('Directory index file not found: ' .
-				htmlspecialchars($script_directory_index));
+				htmlsc($script_directory_index));
 		$matches = array();
 		if (preg_match('#^(.+/)' . preg_quote($script_directory_index, '#') . '$#',
 			$script, $matches)) $script = $matches[1];
@@ -704,6 +708,13 @@ function csv_implode($glue, $pieces)
 	}
 	return join($glue, $arr);
 }
+
+// Sugar with default settings
+function htmlsc($string = '', $flags = ENT_COMPAT, $charset = CONTENT_CHARSET)
+{
+	return htmlspecialchars($string, $flags, $charset);	// htmlsc()
+}
+
 
 //// Compat ////
 
