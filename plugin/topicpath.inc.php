@@ -54,8 +54,13 @@ function plugin_topicpath_inline()
 			$topic_path[] = $element;
 		} else {
 			// Page exists or not exists
+			if(PAGENAME_BASE == FALSE){
 			$topic_path[] = '<a href="' . $script . '?' . $landing . '">' .
 				$element . '</a>';
+			}else{
+			$topic_path[] = '<a href="' .PAGENAME_BASE. $landing . '">' .
+				$element . '</a>';
+			}
 		}
 	}
 
