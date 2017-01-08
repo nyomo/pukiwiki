@@ -192,7 +192,14 @@ function catbody($title, $page, $body)
 	// Compat: 'HTML convert time' without time about MenuBar and skin
 	$taketime = elapsedtime();
 
-	require(SKIN_FILE);
+	// Output
+	if(SMARTY_DIR === FALSE){
+	//smartyを使わないなら以前のまま
+		require(SKIN_FILE);
+	}else{
+		require(LIB_DIR . 'smarty.php');
+	}
+	exit();//htmlの出力が終わっている筈なので終わる
 }
 
 // Show 'edit' form

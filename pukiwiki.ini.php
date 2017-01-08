@@ -18,10 +18,12 @@ if (! defined('PKWK_OPTIMISE'))
 	define('PKWK_OPTIMISE', 0);
 
 //Smartyのlibディレクトリへのパス。使わない場合にはFALSEにする
-define('SMARTY_DIR',FALSE);
+define('SMARTY_DIR',"vendor/smarty/smarty/libs/");
 if(SMARTY_DIR !== FALSE){
-  define('SMARTY_TEMPDIR','./smarty/');
-  require_once(SMARTY_DIR.'Smarty.class.php');
+  //本当はこれで使いたいけどなぜかsmartyがちゃんとロードされないので仕方なく
+  if(SMARTY_DIR == 'autoload')require_once('./vendor/autoload.php');
+  else require_once(SMARTY_DIR.'Smarty.class.php');
+  define('SMARTY_TEMPDIR','./temp/smarty/');
   $smarty = new Smarty();
   $smarty->cache_dir   = SMARTY_TEMPDIR . 'cache';
   $smarty->compile_dir = SMARTY_TEMPDIR .'compile';
