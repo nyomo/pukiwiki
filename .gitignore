@@ -6,6 +6,8 @@ data/counter/*.count
 data/wiki/*.txt
 data/cache/*.ref
 data/cache/*.rel
+data/cache/recent.dat
+data/cache/*.lock
 data/attach/[A-F0-9]*
 data/diff/*.txt
 data/trackback/*.ref
