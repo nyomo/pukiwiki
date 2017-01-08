@@ -11,3 +11,8 @@ data/cache/*.lock
 data/attach/[A-F0-9]*
 data/diff/*.txt
 data/trackback/*.ref
+vendor/
+temp/
+secret.php
+composer.phar
+composer.lock
