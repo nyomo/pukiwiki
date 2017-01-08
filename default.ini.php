@@ -12,9 +12,9 @@
 // Skin file
 
 if (defined('TDIARY_THEME')) {
-	define('SKIN_FILE', DATA_HOME . SKIN_DIR . 'tdiary.skin.php');
+	define('SKIN_FILE', CONF_DIR . SKIN_DIR . 'tdiary.skin.php');
 } else {
-	define('SKIN_FILE', DATA_HOME . SKIN_DIR . 'pukiwiki.skin.php');
+	define('SKIN_FILE', CONF_DIR . SKIN_DIR . 'pukiwiki.skin.php');
 }
 
 /////////////////////////////////////////////////

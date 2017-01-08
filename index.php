@@ -17,7 +17,8 @@ error_reporting(E_ERROR | E_PARSE); // Avoid E_WARNING, E_NOTICE, etc
 
 // Directory definition
 // (Ended with a slash like '../path/to/pkwk/', or '')
-define('DATA_HOME',	'');
+define('DATA_HOME',	'data/');
+define('CONF_DIR',	'');
 define('LIB_DIR',	'lib/');
 
 require(LIB_DIR . 'pukiwiki.php');
