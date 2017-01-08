@@ -17,6 +17,20 @@
 if (! defined('PKWK_OPTIMISE'))
 	define('PKWK_OPTIMISE', 0);
 
+//Smartyのlibディレクトリへのパス。使わない場合にはFALSEにする
+define('SMARTY_DIR',FALSE);
+if(SMARTY_DIR !== FALSE){
+  define('SMARTY_TEMPDIR','./smarty/');
+  require_once(SMARTY_DIR.'Smarty.class.php');
+  $smarty = new Smarty();
+  $smarty->cache_dir   = SMARTY_TEMPDIR . 'cache';
+  $smarty->compile_dir = SMARTY_TEMPDIR .'compile';
+  $smarty->config_dir  = CONF_DIR .'skin';
+  $smarty->template_dir= CONF_DIR .'skin';
+  $smarty->left_delimiter = '<!--{';
+  $smarty->right_delimiter = '}-->';
+}
+
 /////////////////////////////////////////////////
 // Security settings
 
