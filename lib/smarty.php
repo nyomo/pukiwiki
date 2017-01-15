@@ -1,7 +1,7 @@
 <?php
 //ここからsmartyで出力するための内容
 global $smarty;
-$smarty->assign('OutputEncoding',SYSTEM_ENCODING);
+$smarty->assign('OutputEncoding',CONTENT_CHARSET);
 if (arg_check('read') && exist_plugin_convert('menu')) { 
 	$menubar = do_plugin_convert('menu');
 }else{
