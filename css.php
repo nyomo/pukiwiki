@@ -11,6 +11,7 @@ header('Content-type: text/css;charset="'.SOURCE_ENCODING.'"');
 $type = empty($_GET['type'])?NULL:substr($_GET['type'],0,5); 
 if(defined('SKIN_NAME')){
 	switch(SKIN_NAME){
+		case 'TB_BLOG':$cssfile = 'tbblog_css.tpl';break;
 		case 'Twitter':$cssfile = 'twitterbs_css.tpl';break;
 		default:$cssfile = 'css.tpl';
 	}
